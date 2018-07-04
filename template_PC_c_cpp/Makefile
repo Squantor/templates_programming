@@ -16,14 +16,19 @@ AR = ar
 OBJDUMP = objdump
 
 # Toolchain flags
-COMPILE_CXX_FLAGS = -std=c99 -Wall -Wextra
+COMPILE_CXX_FLAGS = -std=gnu11 -Wall -Wextra
 COMPILE_CPP_FLAGS = -std=c++17 -Wall -Wextra
+# used for embedded projects
+#COMPILE_CXX_FLAGS = -std=gnu11 -Wall -Wextra -fno-common -fno-builtin -ffunction-sections -fdata-sections
+#COMPILE_CPP_FLAGS = -std=c++17 -Wall -Wextra -fno-common -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions
 DEFINES = 
 RDEFINES = -DNDEBUG
 DDEFINES = -DDEBUG
 RCOMPILE_FLAGS = $(DEFINES) $(RDEFINES) -O3
 DCOMPILE_FLAGS = $(DEFINES) $(DDEFINES) -g3 -O0
 
+# used for embedded
+# LINK_FLAGS = -nostdlib -Xlinker --gc-sections -Xlinker -print-memory-usage
 LINK_FLAGS =
 RLINK_FLAGS =
 DLINK_FLAGS =
