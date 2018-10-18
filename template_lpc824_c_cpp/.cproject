@@ -236,12 +236,15 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lpc_chip_82x/bin/release}&quot;"/>
 								</option>
 								<option id="com.crt.advproject.link.cpp.crpenable.288093494" name="Enable automatic placement of Code Read Protection field in image" superClass="com.crt.advproject.link.cpp.crpenable" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.crt.advproject.link.cpp.multicore.slave.778677304" name="Multicore configuration" superClass="com.crt.advproject.link.cpp.multicore.slave"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.2090038189" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
 								</inputType>
 							</tool>
-							<tool id="com.crt.advproject.link.exe.release.793965140" name="MCU Linker" superClass="com.crt.advproject.link.exe.release"/>
+							<tool id="com.crt.advproject.link.exe.release.793965140" name="MCU Linker" superClass="com.crt.advproject.link.exe.release">
+								<option id="com.crt.advproject.link.gcc.hdrlib.26481913" name="Library" superClass="com.crt.advproject.link.gcc.hdrlib"/>
+							</tool>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>

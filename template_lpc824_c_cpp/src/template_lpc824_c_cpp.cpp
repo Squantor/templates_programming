@@ -21,6 +21,18 @@
 // TODO: insert other include files here
 
 // TODO: insert other definitions and declarations here
+#define TICKRATE_HZ (10)	/* 10 ticks per second */
+
+/**
+ * @brief	Handle interrupt from SysTick timer
+ * @return	Nothing
+ */
+extern "C" {
+	void SysTick_Handler(void)
+	{
+		Chip_GPIO_SetPinToggle(LPC_GPIO_PORT, 0, 12);
+	}
+}
 
 int main(void) {
 
@@ -36,13 +48,23 @@ int main(void) {
 #endif
 #endif
 
-    // TODO: insert code here
+	/* Initialize GPIO */
+	Chip_GPIO_Init(LPC_GPIO_PORT);
+	Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 0, 12);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 0, 12, true);
+	Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 0, 16);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 0, 16, true);
+	Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 0, 27);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 0, 27, true);
 
-    // Force the counter to be placed into memory
-    volatile static int i = 0 ;
-    // Enter an infinite loop, just incrementing a counter
-    while(1) {
-        i++ ;
-    }
+
+	/* Enable SysTick Timer */
+	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
+
+	/* Loop forever */
+	while (1) {
+		__WFI();
+	}
+
     return 0 ;
 }
