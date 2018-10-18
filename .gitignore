@@ -4,6 +4,8 @@
 *.o
 *.obj
 build/
+Debug/
+Release/
 
 # Compiled Dynamic libraries
 *.so
@@ -24,3 +26,6 @@ bin/
 
 #miscellanious generated files
 *.log
+
+#eclipse junk
+.settings/
