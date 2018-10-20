@@ -27,5 +27,6 @@ bin/
 #miscellanious generated files
 *.log
 
-#eclipse junk
+#eclipse stuff
 .settings/
+*.launch
