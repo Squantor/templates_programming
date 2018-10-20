@@ -26,23 +26,20 @@ OBJCOPY = objcopy
 # Toolchain flags
 COMPILE_CXX_FLAGS = -std=gnu11 -Wall -Wextra -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m0 -mthumb
 COMPILE_CPP_FLAGS = -std=c++17 -Wall -Wextra -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb
-COMPILE_S_FLAGS = -c -x assembler-with-cpp
-# used for embedded projects
+COMPILE_ASM_FLAGS = -c -x assembler-with-cpp
 DEFINES = -D__NEWLIB__ -D__CODE_RED -DCORE_M0PLUS -D__MTB_BUFFER_SIZE=256 -D__USE_ROMDIVIDE -D__USE_LPCOPEN -DNO_BOARD_LIB -DCPP_NO_HEAP -D__LPC82X__
-RDEFINES = -DNDEBUG
-DDEFINES = -DDEBUG
-CXX_RCOMPILE_FLAGS = -Os -g  
-CXX_DCOMPILE_FLAGS = -O0 -g3 
-CPP_RCOMPILE_FLAGS = -Os -g 
-CPP_DCOMPILE_FLAGS = -O0 -g3
-S_RCOMPILE_FLAGS = -mcpu=cortex-m0 -mthumb
-S_DCOMPILE_FLAGS = -g3 -mcpu=cortex-m0 -mthumb
+DEFINES_RELEASE = -DNDEBUG
+DEFINES_DEBUG = -DDEBUG
+CXX_RELEASE_COMPILE_FLAGS = -Os -g  
+CXX_DEBUG_COMPILE_FLAGS = -O0 -g3 
+CPP_RELEASE_COMPILE_FLAGS = -Os -g 
+CPP_DEBUG_COMPILE_FLAGS = -O0 -g3
+ASM_RELEASE_COMPILE_FLAGS = -mcpu=cortex-m0 -mthumb
+ASM_DEBUG_COMPILE_FLAGS = -g3 -mcpu=cortex-m0 -mthumb
 
-
-# used for embedded
 LINK_FLAGS = -nostdlib -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m0 -mthumb
-RLINK_FLAGS =
-DLINK_FLAGS =
+LINK_FLAGS_RELEASE =
+LINK_FLAGS_DEBUG =
 LDSCRIPT = -T"ld/nxp_$(MCU).ld"
 
 
@@ -55,15 +52,15 @@ LDSCRIPT = -T"ld/nxp_$(MCU).ld"
 print-%: ; @echo $*=$($*)
 
 # Combine compiler and linker flags
-release: export CXXFLAGS := $(COMPILE_CXX_FLAGS) $(CXX_RCOMPILE_FLAGS)
-release: export CPPFLAGS := $(COMPILE_CPP_FLAGS) $(CPP_RCOMPILE_FLAGS)
-release: export SFLAGS := $(COMPILE_S_FLAGS) $(S_RCOMPILE_FLAGS)
-release: export LDFLAGS := $(LINK_FLAGS) $(RLINK_FLAGS) $(LIBDIR) $(RLIBDIR) $(LDSCRIPT)
+release: export CXXFLAGS := $(COMPILE_CXX_FLAGS) $(CXX_RELEASE_COMPILE_FLAGS) $(DEFINES_RELEASE) $(DEFINES)
+release: export CPPFLAGS := $(COMPILE_CPP_FLAGS) $(CPP_RELEASE_COMPILE_FLAGS) $(DEFINES_RELEASE) $(DEFINES)
+release: export ASMFLAGS := $(COMPILE_ASM_FLAGS) $(ASM_RELEASE_COMPILE_FLAGS) $(DEFINES_RELEASE) $(DEFINES)
+release: export LDFLAGS := $(LINK_FLAGS) $(LINK_FLAGS_RELEASE) $(LIBDIR) $(RLIBDIR) $(LDSCRIPT)
 release: export LIBS := $(LIBS) $(RLIBS)
-debug: export CXXFLAGS := $(CXXFLAGS) $(COMPILE_CXX_FLAGS) $(CXX_DCOMPILE_FLAGS)
-debug: export CPPFLAGS := $(CPPFLAGS) $(COMPILE_CPP_FLAGS) $(CPP_DCOMPILE_FLAGS)
-debug: export LDFLAGS := $(LINK_FLAGS) $(DLINK_FLAGS) $(LIBDIR) $(DLIBDIR) $(LDSCRIPT)
-debug: export SFLAGS := $(COMPILE_S_FLAGS) $(S_DCOMPILE_FLAGS)
+debug: export CXXFLAGS := $(CXXFLAGS) $(COMPILE_CXX_FLAGS) $(CXX_DEBUG_COMPILE_FLAGS) $(DEFINES_DEBUG) $(DEFINES)
+debug: export CPPFLAGS := $(CPPFLAGS) $(COMPILE_CPP_FLAGS) $(CPP_DEBUG_COMPILE_FLAGS) $(DEFINES_DEBUG) $(DEFINES)
+debug: export ASMFLAGS := $(COMPILE_ASM_FLAGS) $(ASM_DEBUG_COMPILE_FLAGS) $(DEFINES_DEBUG) $(DEFINES)
+debug: export LDFLAGS := $(LINK_FLAGS) $(LINK_FLAGS_DEBUG) $(LIBDIR) $(DLIBDIR) $(LDSCRIPT)
 debug: export LIBS := $(LIBS) $(DLIBS)
 
 # Build and output paths
@@ -135,13 +132,13 @@ $(BIN_PATH)/$(BIN_NAME).axf: $(OBJECTS)
 # if the source file is in a subdir, create this subdir in the build dir
 $(BUILD_PATH)/%.c.o: ./%.c
 	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(CXX) $(CXXFLAGS) $(DEFINES) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(TOOLCHAIN_PREFIX)$(CXX) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
 $(BUILD_PATH)/%.cpp.o: ./%.cpp
 	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(CPP) $(CPPFLAGS) $(DEFINES) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(TOOLCHAIN_PREFIX)$(CPP) $(CPPFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
 $(BUILD_PATH)/%.s.o: ./%.s
 	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(CXX) $(SFLAGS) $(DEFINES) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(TOOLCHAIN_PREFIX)$(CXX) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
