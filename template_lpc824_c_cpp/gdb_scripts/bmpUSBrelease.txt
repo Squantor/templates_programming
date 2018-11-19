@@ -1,0 +1,12 @@
+target extended-remote /dev/ttyBmpGdb0
+monitor swdp_scan
+attach 1
+set mem inaccessible-by-default off
+set {int}0x40048000 = 2
+load bin/debug/template_lpc824_c_cpp.axf
+file bin/debug/template_lpc824_c_cpp.axf
+set {int}0x40048000 = 2
+compare-sections
+b main
+
+
