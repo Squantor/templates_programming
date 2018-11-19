@@ -5,6 +5,14 @@
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
     </Plugin>
   </Plugins>
+  <VirtualDirectory Name="src">
+    <File Name="src/cr_startup_lpc82x.cpp"/>
+    <File Name="src/mtb.c"/>
+    <File Name="src/template_lpc824_c_cpp.cpp"/>
+    <File Name="src/crp.c"/>
+    <File Name="src/sysinit.c"/>
+    <File Name="src/cr_cpp_config.cpp"/>
+  </VirtualDirectory>
   <Description/>
   <Dependencies/>
   <Settings Type="Executable">
@@ -28,10 +36,18 @@
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+      <Debugger IsRemote="no" RemoteHostName="localhost" RemoteHostPort="2000" DebuggerPath="../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
         <PostConnectCommands/>
-        <StartupCommands/>
+        <StartupCommands>target extended-remote localhost:2000
+monitor swdp_scan
+attach 1
+set mem inaccessible-by-default off
+set {int}0x40048000 = 2
+load $(IntermediateDirectory)/$(ProjectName).axf
+file $(IntermediateDirectory)/$(ProjectName).axf
+set {int}0x40048000 = 2
+compare-sections</StartupCommands>
       </Debugger>
       <PreBuild/>
       <PostBuild/>
