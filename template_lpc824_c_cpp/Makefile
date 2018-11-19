@@ -17,6 +17,7 @@ MKDIR = mkdir
 RM = rm
 CXX = gcc
 CPP = g++
+GDB = gdb
 TOOLCHAIN_PREFIX = arm-none-eabi-
 SIZE = size
 AR = ar
@@ -82,27 +83,23 @@ OBJECTS += $(S_SOURCES:%.s=$(BUILD_PATH)/%.s.o)
 DEPS = $(OBJECTS:.o=.d)
 
 # Standard, non-optimized release build
-.PHONY: release
 release: dirs
 	# make lpc_chip library if needed
 	$(MAKE) -C ../lpc_chip_8xx release
 	$(MAKE) all --no-print-directory
 
 # Debug build for gdb debugging
-.PHONY: debug
 debug: dirs
 	# make lpc_chip library if needed
 	$(MAKE) -C ../lpc_chip_8xx debug
 	$(MAKE) all --no-print-directory
 
 # Create the directories used in the build
-.PHONY: dirs
 dirs:
 	$(MKDIR) -p $(BUILD_PATH)
 	$(MKDIR) -p $(BIN_PATH)
 
 # Removes all build files
-.PHONY: clean clean_debug clean_release
 clean_debug:
 clean_release:
 clean:
@@ -112,7 +109,7 @@ clean:
 # Main rule, checks the executable and symlinks to the output
 all: $(BIN_PATH)/$(BIN_NAME).axf
 
-# create the archive
+# create the executable
 $(BIN_PATH)/$(BIN_NAME).axf: $(OBJECTS)
 	$(TOOLCHAIN_PREFIX)$(CPP) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$@.map" -o $@ $(LIBS)
 	# dump size and log to file
@@ -141,4 +138,20 @@ $(BUILD_PATH)/%.cpp.o: ./%.cpp
 $(BUILD_PATH)/%.s.o: ./%.s
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(CXX) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+
+# debugging lines
+gdbftdidebug: debug
+	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpFTDIdebug.txt
+
+gdbftdirelease: release
+	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpFTDIrelease.txt
+
+gdbusbdebug: debug
+	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpUSBdebug.txt
+
+gdbusbrelease: debug
+	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpUSBrelease.txt
+
+
+.PHONY: release debug dirs all clean clean_debug clean_release gdbftdidebug gdbftdirelease gdbusbdebug gdbusbrelease
 
