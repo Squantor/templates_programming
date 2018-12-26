@@ -6,11 +6,11 @@ C_SOURCES = src/crp.c src/mtb.c src/sysinit.c
 CPP_SOURCES = src/cr_cpp_config.cpp src/cr_startup_lpc82x.cpp \
 src/template_lpc824_c_cpp.cpp src/boardinit.cpp
 S_SOURCES = src/aeabi_romdiv_patch.s 
-INCLUDES = -Iinc -I../lpc_chip_8xx/inc
-RLIBDIR = -L"../lpc_chip_8xx/bin/release"
-RLIBS = -llpc_chip_8xx
-DLIBDIR = -L"../lpc_chip_8xx/bin/debug"
-DLIBS = -llpc_chip_8xx
+INCLUDES = -Iinc -I../lpc_chip_82x/inc
+RLIBDIR = -L"../lpc_chip_82x/bin/release"
+RLIBS = -llpc_chip_82x
+DLIBDIR = -L"../lpc_chip_82x/bin/debug"
+DLIBS = -llpc_chip_82x
 
 # Toolchain settings
 MAKE = make
@@ -86,13 +86,13 @@ DEPS = $(OBJECTS:.o=.d)
 # Standard, non-optimized release build
 release: dirs
 	# make lpc_chip library if needed
-	$(MAKE) -C ../lpc_chip_8xx release
+	$(MAKE) -C ../lpc_chip_82x release
 	$(MAKE) all --no-print-directory
 
 # Debug build for gdb debugging
 debug: dirs
 	# make lpc_chip library if needed
-	$(MAKE) -C ../lpc_chip_8xx debug
+	$(MAKE) -C ../lpc_chip_82x debug
 	$(MAKE) all --no-print-directory
 
 # Create the directories used in the build
