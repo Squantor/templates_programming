@@ -3,7 +3,8 @@ BIN_NAME = template_lpc824_c_cpp
 MCU = lpc824
 BOARD = 
 C_SOURCES = src/crp.c src/mtb.c src/sysinit.c
-CPP_SOURCES = src/cr_cpp_config.cpp src/cr_startup_lpc82x.cpp src/template_lpc824_c_cpp.cpp
+CPP_SOURCES = src/cr_cpp_config.cpp src/cr_startup_lpc82x.cpp \
+src/template_lpc824_c_cpp.cpp src/boardinit.cpp
 S_SOURCES = src/aeabi_romdiv_patch.s 
 INCLUDES = -Iinc -I../lpc_chip_8xx/inc
 RLIBDIR = -L"../lpc_chip_8xx/bin/release"
@@ -28,7 +29,7 @@ OBJCOPY = objcopy
 COMPILE_CXX_FLAGS = -std=gnu11 -Wall -Wextra -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m0 -mthumb
 COMPILE_CPP_FLAGS = -std=c++17 -Wall -Wextra -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb
 COMPILE_ASM_FLAGS = -c -x assembler-with-cpp
-DEFINES = -D__NEWLIB__ -D__CODE_RED -DCORE_M0PLUS -D__MTB_BUFFER_SIZE=256 -D__USE_ROMDIVIDE -D__USE_LPCOPEN -DNO_BOARD_LIB -DCPP_NO_HEAP -D__LPC82X__
+DEFINES = -DCORE_M0PLUS -D__MTB_BUFFER_SIZE=256 -D__USE_ROMDIVIDE -D__USE_LPCOPEN -D__LPC82X__
 DEFINES_RELEASE = -DNDEBUG
 DEFINES_DEBUG = -DDEBUG
 CXX_RELEASE_COMPILE_FLAGS = -Os -g  

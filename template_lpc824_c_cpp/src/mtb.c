@@ -51,9 +51,6 @@
  *     several) RAM bank is used.
  *******************************************************************/
 
-// Ignore with none Code Red tools
-#if defined (__CODE_RED)
-
 // Allow MTB to be removed by setting a define (via command line)
 #if !defined (__MTB_DISABLE)
 
@@ -81,6 +78,4 @@
   #endif // (__MTB_BUFFER_SIZE > 0)
 
 #endif // !defined (__MTB_DISABLE)
-
-#endif // defined (__CODE_RED)
 

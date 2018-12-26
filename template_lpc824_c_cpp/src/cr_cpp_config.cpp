@@ -43,7 +43,8 @@ void *operator new[](size_t size)
 {
     return malloc(size);
 }
-
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wsized-deallocation"
 void operator delete(void *p)
 {
     free(p);
@@ -60,15 +61,15 @@ extern "C" int __aeabi_atexit(void *object,
 {
 	return 0;
 }
+#pragma GCC diagnostic pop
 
-#ifdef CPP_NO_HEAP
+
 extern "C" void *malloc(size_t) {
 	return (void *)0;
 }
 
 extern "C" void free(void *) {
 }
-#endif
 
 #ifndef CPP_USE_CPPLIBRARY_TERMINATE_HANDLER
 /******************************************************************

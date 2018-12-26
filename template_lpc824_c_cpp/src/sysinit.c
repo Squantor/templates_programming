@@ -29,11 +29,8 @@
  * this code.
  */
 
- #if defined(NO_BOARD_LIB)
- #include "chip.h"
- #else
- #include "board.h"
- #endif
+#include "chip.h"
+
 
 /*****************************************************************************
  * Private types/enumerations/variables
@@ -43,10 +40,8 @@
  * Public types/enumerations/variables
  ****************************************************************************/
 
-#if defined(NO_BOARD_LIB)
 const uint32_t OscRateIn = 12000000;
 const uint32_t ExtRateIn = 0;
-#endif
 
 /*****************************************************************************
  * Private functions
@@ -59,11 +54,6 @@ const uint32_t ExtRateIn = 0;
 /* Set up and initialize hardware prior to call to main */
 void SystemInit(void)
 {
-#if defined(NO_BOARD_LIB)
 	/* Chip specific SystemInit */
-	Chip_SystemInit();
-#else
-	/* Board specific SystemInit */
-	Board_SystemInit();
-#endif
+	//Chip_SystemInit();
 }
