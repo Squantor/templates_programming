@@ -1,3 +1,4 @@
+# update per change V0001
 # project name
 BIN_NAME = template_microcontroller
 MCU = LPC824
