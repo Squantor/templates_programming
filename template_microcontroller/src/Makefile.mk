@@ -1,4 +1,4 @@
-# update per change V0001
+# update per change V0002
 # project name
 BIN_NAME = template_microcontroller
 MCU = LPC824
@@ -18,3 +18,11 @@ COMPILE_C_FLAGS = -std=gnu11 -Wall -Wextra -Wno-main -fno-common -c -fmessage-le
 COMPILE_CXX_FLAGS = -std=c++17 -Wall -Wextra -Wno-main -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -flto
 COMPILE_ASM_FLAGS = -c -x assembler-with-cpp
 LINK_FLAGS = -Wl,-flto
+
+#custom build rules
+pre-clean:
+
+pre-release:
+
+pre-debug:
+

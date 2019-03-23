@@ -1,8 +1,8 @@
-# update per change V0001
-# get platform settings
-include platform/$(MCU).mk
+# update per change V0003
 # get project settings
 include src/Makefile.mk
+# get platform settings
+include platform/$(MCU).mk
 
 INCLUDES += -Iplatform
 ALIBS +=
@@ -83,12 +83,11 @@ OBJECTS += $(S_SOURCES:%.s=$(BUILD_PATH)/%.s.o)
 DEPS = $(OBJECTS:.o=.d)
 
 # Standard, non-optimized release build
-release: dirs
-	# make lpc_chip library if needed
+release: dirs pre-release
 	$(MAKE) all --no-print-directory
 
 # Debug build for gdb debugging
-debug: dirs
+debug: dirs pre-debug
 	$(MAKE) all --no-print-directory
 
 # Create the directories used in the build
@@ -97,9 +96,7 @@ dirs:
 	$(MKDIR) -p $(BIN_PATH)
 
 # Removes all build files
-clean_debug:
-clean_release:
-clean:
+clean: pre-clean
 	$(RM) -r build
 	$(RM) -r bin
 
