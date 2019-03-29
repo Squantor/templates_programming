@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="template_microcontroller" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="platform">
     <File Name="platform/isr_lpc82X.cpp"/>
     <File Name="platform/isr_STM32F103C8.cpp"/>
@@ -14,11 +19,6 @@
     <File Name="src/main.cpp"/>
     <File Name="src/startup.cpp"/>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Executable">
@@ -37,23 +37,21 @@
       </Compiler>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="./bin/debug/cortexM_startup_code.elf" IntermediateDirectory="./build/debug" Command="./bin/debug/cortexM_startup_code.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="./bin/debug/template_microcontroller.elf" IntermediateDirectory="./build/debug" Command="./bin/debug/template_microcontroller.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
       <Environment EnvVarSetName="Default" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
       <Debugger IsRemote="yes" RemoteHostName="localhost" RemoteHostPort="2000" DebuggerPath="../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands>monitor swdp_scan
+        <PostConnectCommands>file bin/debug/template_microcontroller.elf
+monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/debug/cortexM_startup_code.elf
-file bin/debug/cortexM_startup_code.elf
+load bin/debug/template_microcontroller.elf
 set {int}0x40048000 = 2
-compare-sections
-b main
-b Reset_Handler</PostConnectCommands>
+compare-sections</PostConnectCommands>
         <StartupCommands/>
       </Debugger>
       <PreBuild/>
@@ -61,7 +59,7 @@ b Reset_Handler</PostConnectCommands>
       <CustomBuild Enabled="yes">
         <RebuildCommand>make clean &amp;&amp; make debug</RebuildCommand>
         <CleanCommand>make clean</CleanCommand>
-        <BuildCommand>make</BuildCommand>
+        <BuildCommand>make debug</BuildCommand>
         <PreprocessFileCommand/>
         <SingleFileCommand/>
         <MakefileGenerationCommand/>
@@ -85,7 +83,7 @@ b Reset_Handler</PostConnectCommands>
       </Compiler>
       <Linker Options="-O2" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="./bin/release/cortexM_startup_code.elf" IntermediateDirectory="./build/release" Command="./bin/release/cortexM_startup_code.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="./bin/release/template_microcontroller.elf" IntermediateDirectory="./build/release" Command="./bin/release/template_microcontroller.elf" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
@@ -100,7 +98,7 @@ b Reset_Handler</PostConnectCommands>
       <CustomBuild Enabled="yes">
         <RebuildCommand>make clean &amp;&amp; make release</RebuildCommand>
         <CleanCommand>make clean</CleanCommand>
-        <BuildCommand>make</BuildCommand>
+        <BuildCommand>make release</BuildCommand>
         <PreprocessFileCommand/>
         <SingleFileCommand/>
         <MakefileGenerationCommand/>

@@ -1,10 +1,10 @@
-file bin/debug/cortexM_startup_code.elf
+file bin/debug/template_microcontroller.elf
 target extended-remote localhost:2000
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
-load bin/debug/cortexM_startup_code.elf
+load bin/debug/template_microcontroller.elf
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
 compare-sections

@@ -1,4 +1,4 @@
-# update per change V0003
+# update per change V0004
 # get project settings
 include src/Makefile.mk
 # get platform settings
@@ -6,8 +6,8 @@ include platform/$(MCU).mk
 
 INCLUDES += -Iplatform
 ALIBS +=
-RLIBS += 
-DLIBS += 
+RLIBS +=
+DLIBS +=
 ALIBDIR += -L"./ld"
 RLIBDIR +=
 DLIBDIR +=
@@ -39,7 +39,7 @@ CXX_DEBUG_COMPILE_FLAGS = -Og -g3
 ASM_RELEASE_COMPILE_FLAGS = 
 ASM_DEBUG_COMPILE_FLAGS = -g3
 
-LINK_FLAGS += -flto -nostdlib -Xlinker --gc-sections -Xlinker -print-memory-usage
+LINK_FLAGS +=
 LINK_FLAGS_RELEASE =
 LINK_FLAGS_DEBUG =
 LDSCRIPT = -T"ld/$(MCU).ld"
