@@ -15,13 +15,17 @@
     <File Name="platform/cortexm_irqs_standard.cpp"/>
     <File Name="platform/isr_lpc81X.cpp"/>
   </VirtualDirectory>
+  <VirtualDirectory Name="inc">
+    <File Name="inc/board.hpp"/>
+  </VirtualDirectory>
   <VirtualDirectory Name="src">
     <File Name="src/main.cpp"/>
+    <File Name="src/dummy_board.cpp"/>
     <File Name="src/startup.cpp"/>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
-  <Settings Type="Executable">
+  <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
         <IncludePath Value="."/>
@@ -42,16 +46,19 @@
       <Environment EnvVarSetName="Default" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="yes" RemoteHostName="localhost" RemoteHostPort="2000" DebuggerPath="../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
+      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
         <PostConnectCommands>file bin/debug/template_microcontroller.elf
+monitor tpwr enable
+shell sleep 1
 monitor swdp_scan
 attach 1
 set mem inaccessible-by-default off
 set {int}0x40048000 = 2
 load bin/debug/template_microcontroller.elf
 set {int}0x40048000 = 2
-compare-sections</PostConnectCommands>
+compare-sections
+b main</PostConnectCommands>
         <StartupCommands/>
       </Debugger>
       <PreBuild/>
@@ -88,9 +95,19 @@ compare-sections</PostConnectCommands>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+      <Debugger IsRemote="yes" RemoteHostName="/dev/ttyBmpGdb0" RemoteHostPort="" DebuggerPath="../../../../../../usr/bin/arm-none-eabi-gdb" IsExtended="yes">
         <DebuggerSearchPaths/>
-        <PostConnectCommands/>
+        <PostConnectCommands>file bin/release/template_microcontroller.elf
+monitor tpwr enable
+shell sleep 1
+monitor swdp_scan
+attach 1
+set mem inaccessible-by-default off
+set {int}0x40048000 = 2
+load bin/release/template_microcontroller.elf
+set {int}0x40048000 = 2
+compare-sections
+b main</PostConnectCommands>
         <StartupCommands/>
       </Debugger>
       <PreBuild/>

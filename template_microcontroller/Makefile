@@ -1,4 +1,4 @@
-# update per change V0005
+# update per change V0006
 # get project settings
 include src/Makefile.mk
 # get platform settings
@@ -133,19 +133,4 @@ $(BUILD_PATH)/%.s.o: ./%.s Makefile ./src/Makefile.mk
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
-# debugging lines
-gdbftdidebug: debug
-	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpFTDIdebug.txt
-
-gdbftdirelease: release
-	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpFTDIrelease.txt
-
-gdbusbdebug: debug
-	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpUSBdebug.txt
-
-gdbusbrelease: debug
-	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmpUSBrelease.txt
-
-
-.PHONY: release debug dirs all clean clean_debug clean_release gdbftdidebug gdbftdirelease gdbusbdebug gdbusbrelease
-
+.PHONY: release debug dirs all clean clean_debug clean_release
