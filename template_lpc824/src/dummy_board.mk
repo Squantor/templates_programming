@@ -19,17 +19,17 @@ DLIBDIR += -L"../lpc_chip_82x/bin/debug" \
 
 #custom build rules
 pre-clean:
-	$(MAKE) -C ../lpc_chip_82x clean
+	$(MAKE) -C ../lpc_chip_82x clean MCU=LPC82X
 	$(MAKE) -C ../squantorLibC clean
 	$(MAKE) -C ../squantorLibEmbeddedC clean
 
 pre-release:
-	$(MAKE) -C ../lpc_chip_82x release
+	$(MAKE) -C ../lpc_chip_82x release MCU=LPC82X
 	$(MAKE) -C ../squantorLibC release PLATFORM=CortexM0
 	$(MAKE) -C ../squantorLibEmbeddedC release PLATFORM=CortexM0
 
 pre-debug:
-	$(MAKE) -C ../lpc_chip_82x debug
+	$(MAKE) -C ../lpc_chip_82x debug MCU=LPC82X
 	$(MAKE) -C ../squantorLibC debug PLATFORM=CortexM0
 	$(MAKE) -C ../squantorLibEmbeddedC debug PLATFORM=CortexM0
 

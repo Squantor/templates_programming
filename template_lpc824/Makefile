@@ -1,4 +1,4 @@
-# update per change V0007
+# update per change V0008
 # get project settings
 include src/Makefile.mk
 # get platform settings
@@ -39,8 +39,8 @@ ASM_RELEASE_COMPILE_FLAGS =
 ASM_DEBUG_COMPILE_FLAGS = -g3
 
 LINK_FLAGS +=
-LINK_FLAGS_RELEASE =
-LINK_FLAGS_DEBUG =
+LINK_FLAGS_RELEASE +=
+LINK_FLAGS_DEBUG +=
 
 # Clear built-in rules
 .SUFFIXES:
