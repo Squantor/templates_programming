@@ -1,4 +1,4 @@
-# update per change V0006
+# update per change V0007
 # get project settings
 include src/Makefile.mk
 # get platform settings
@@ -28,7 +28,7 @@ OBJCOPY = objcopy
 COMPILE_C_FLAGS +=  
 COMPILE_CXX_FLAGS +=  
 COMPILE_ASM_FLAGS += 
-DEFINES += -DMCU_$(MCU)
+DEFINES +=
 DEFINES_RELEASE = -DNDEBUG
 DEFINES_DEBUG = -DDEBUG
 C_RELEASE_COMPILE_FLAGS = -Os -g  
@@ -41,7 +41,6 @@ ASM_DEBUG_COMPILE_FLAGS = -g3
 LINK_FLAGS +=
 LINK_FLAGS_RELEASE =
 LINK_FLAGS_DEBUG =
-LDSCRIPT = -T"ld/$(MCU).ld"
 
 # Clear built-in rules
 .SUFFIXES:
