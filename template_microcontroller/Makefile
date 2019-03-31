@@ -1,4 +1,4 @@
-# update per change V0004
+# update per change V0005
 # get project settings
 include src/Makefile.mk
 # get platform settings
@@ -19,7 +19,6 @@ RM = rm
 C_COMPILER = gcc
 CXX_COMPILER = g++
 GDB = gdb
-TOOLCHAIN_PREFIX = arm-none-eabi-
 SIZE = size
 AR = ar
 OBJDUMP = objdump
