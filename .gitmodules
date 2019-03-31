@@ -1,3 +1,9 @@
 [submodule "lpc_chip_82x"]
 	path = lpc_chip_82x
 	url = https://github.com/Squantor/lpc_chip_82x.git
+[submodule "squantorLibC"]
+	path = squantorLibC
+	url = https://github.com/Squantor/squantorLibC.git
+[submodule "squantorLibEmbeddedC"]
+	path = squantorLibEmbeddedC
+	url = https://github.com/Squantor/squantorLibEmbeddedC.git
