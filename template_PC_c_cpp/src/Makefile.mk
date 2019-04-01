@@ -1,5 +1,5 @@
 # project settings
-BIN_NAME = frame_console_c_cpp
+BIN_NAME = template_c_cpp
 C_SOURCES = src/test.c
 CXX_SOURCES = src/main.cpp src/test.cpp
 S_SOURCES =
