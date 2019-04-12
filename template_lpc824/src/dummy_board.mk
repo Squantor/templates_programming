@@ -1,9 +1,9 @@
 # update per change V0002
 # board specific settings
-MCU = LPC812
+MCU = LPC824
 C_SOURCES +=
 CXX_SOURCES += src/$(BOARD).cpp
-S_SOURCES +=
+S_SOURCES += src/aeabi_romdiv_patch.s
 DEFINES += -D$(BOARD) -DCORE_M0PLUS -D__USE_ROMDIVIDE -DCHIP_LPC82X
 INCLUDES += -I../lpc_chip_82x/inc -I../squantorLibC/inc -I../squantorLibEmbeddedC/inc
 ALIBS += -llpc_chip_82x -lsqlibc -lsqlibembeddedc
