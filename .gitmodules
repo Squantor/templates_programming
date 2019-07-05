@@ -7,3 +7,6 @@
 [submodule "squantorLibEmbeddedC"]
 	path = squantorLibEmbeddedC
 	url = https://github.com/Squantor/squantorLibEmbeddedC.git
+[submodule "template_lpc824/tests/squantorMinUnitC"]
+	path = template_lpc824/tests/squantorMinUnitC
+	url = https://github.com/Squantor/squantorMinUnitC.git
