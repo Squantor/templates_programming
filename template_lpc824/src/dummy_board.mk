@@ -1,6 +1,6 @@
-# update per change V0002
+# update per change V0003
 # board specific settings
-MCU = LPC824
+PLATFORM = LPC824
 C_SOURCES +=
 CXX_SOURCES += src/$(BOARD).cpp
 S_SOURCES += src/aeabi_romdiv_patch.s
@@ -12,7 +12,7 @@ DLIBS +=
 ALIBDIR +=
 RLIBDIR += -L"../lpc_chip_82x/bin/release" \
 -L"../squantorLibC/bin/CortexM0/release" \
--L"../squantorLibEmbeddedC/bin/CortexM0/release" 
+-L"../squantorLibEmbeddedC/bin/CortexM0/release"
 DLIBDIR += -L"../lpc_chip_82x/bin/debug" \
 -L"../squantorLibC/bin/CortexM0/debug" \
 -L"../squantorLibEmbeddedC/bin/CortexM0/debug"

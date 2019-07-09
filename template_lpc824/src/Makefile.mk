@@ -1,4 +1,4 @@
-# update per change V0006
+# update per change V0007
 
 # project name
 BIN_NAME = template_microcontroller
