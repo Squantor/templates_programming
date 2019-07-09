@@ -1,24 +1,32 @@
 # update per change V0002
 # board specific settings
-MCU = LPC812
+PLATFORM = LPC812
 C_SOURCES +=
 CXX_SOURCES += src/$(BOARD).cpp
 S_SOURCES +=
 DEFINES += -D$(BOARD)
-INCLUDES += -Iinc
-ALIBS +=
+INCLUDES += -Iinc -I../squantorLibC/inc -I../squantorLibEmbeddedC/inc
+ALIBS += -lsqlibembeddedc -lsqlibc
 RLIBS +=
 DLIBS +=
 ALIBDIR +=
-RLIBDIR +=
-DLIBDIR +=
+RLIBDIR += -L"../squantorLibC/bin/CortexM0/release" \
+-L"../squantorLibEmbeddedC/bin/CortexM0/release"
+DLIBDIR += -L"../squantorLibC/bin/CortexM0/debug" \
+-L"../squantorLibEmbeddedC/bin/CortexM0/debug"
 
 #custom build rules
 pre-clean:
+	$(MAKE) -C ../squantorLibC clean
+	$(MAKE) -C ../squantorLibEmbeddedC clean
 
 pre-release:
+	$(MAKE) -C ../squantorLibC release PLATFORM=CortexM0
+	$(MAKE) -C ../squantorLibEmbeddedC release PLATFORM=CortexM0
 
 pre-debug:
+	$(MAKE) -C ../squantorLibC debug PLATFORM=CortexM0
+	$(MAKE) -C ../squantorLibEmbeddedC debug PLATFORM=CortexM0
 
 #project hardware specific commands
 gdbusbdebug: debug
