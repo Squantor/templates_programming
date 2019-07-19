@@ -1,11 +1,11 @@
-# update per change V0003
+# update per change V0004
 # board specific settings
 PLATFORM = LPC824
 C_SOURCES +=
 CXX_SOURCES += src/$(BOARD).cpp
 S_SOURCES += src/aeabi_romdiv_patch.s
 DEFINES += -D$(BOARD) -DCORE_M0PLUS -D__USE_ROMDIVIDE -DCHIP_LPC82X
-INCLUDES += -I../lpc_chip_82x/inc -I../squantorLibC/inc -I../squantorLibEmbeddedC/inc
+INCLUDES += -Iinc -I../lpc_chip_82x/inc -I../squantorLibC/inc -I../squantorLibEmbeddedC/inc
 ALIBS += -llpc_chip_82x -lsqlibembeddedc -lsqlibc
 RLIBS +=
 DLIBS +=
