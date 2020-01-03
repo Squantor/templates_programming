@@ -1,4 +1,4 @@
-# update per change V0004
+# update per change V0005
 # board specific settings
 PLATFORM = LPC812
 C_SOURCES +=
@@ -26,12 +26,12 @@ pre-clean:
 pre-release:
 	$(MAKE) -C ../lpc_chip_82x release MCU=LPC81X
 	$(MAKE) -C ../squantorLibC release PLATFORM=CortexM0
-	$(MAKE) -C ../squantorLibEmbeddedC release PLATFORM=CortexM0
+	$(MAKE) -C ../squantorLibEmbeddedC release PLATFORM=CortexM0 LIBC_INC=../squantorLibC/inc/
 
 pre-debug:
 	$(MAKE) -C ../lpc_chip_82x debug MCU=LPC81X
 	$(MAKE) -C ../squantorLibC debug PLATFORM=CortexM0
-	$(MAKE) -C ../squantorLibEmbeddedC debug PLATFORM=CortexM0
+	$(MAKE) -C ../squantorLibEmbeddedC debug PLATFORM=CortexM0 LIBC_INC=../squantorLibC/inc/
 
 #project hardware specific commands
 gdbusbdebug: debug
