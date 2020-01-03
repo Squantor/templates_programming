@@ -1,7 +1,7 @@
 # $(PROJECT) program
 This software project contains the code to do something.
 ## Checking out
-use ```git clone --recurse-submodules https://github.com/Squantor/$(PROJECT).git``` to clone the repo and its submodules.
+use ```git clone --recurse-submodules https://github.com/Squantor/$(PROJECT).git``` to clone the repository and its submodules.
 ## Compiling
 This project uses gnu make as its build system on a Linux platform. There are two build targets: release and debug. Release builds with optimizations and minimal debugging information. Debug builds with no optimization and full debug information.
 ```
