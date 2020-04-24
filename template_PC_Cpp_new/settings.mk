@@ -35,4 +35,7 @@ SIZE = size
 AR = ar
 OBJDUMP = objdump
 OBJCOPY = objcopy
+TOUCH = touch
+
+#define a list of configs
 

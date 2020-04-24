@@ -26,3 +26,53 @@
 
 # transform build specific variables to variables used by the build
 
+BIN_PATH := bin/$(CONFIG)
+OBJ_PATH := build/$(CONFIG)
+EXECUTABLE := $(BIN_PATH)/$(PRJNAME).elf
+
+OBJECTS += $(SRC_C:%.c=$(OBJ_PATH)/%.c.o)
+OBJECTS += $(SRC_CXX:%.cpp=$(OBJ_PATH)/%.cpp.o)
+OBJECTS += $(SRC_ASM:%.s=$(OBJ_PATH)/%.s.o)
+# Set the dependency files that will be used to add header dependencies
+DEPS = $(OBJECTS:.o=.d)
+
+all: | dirs $(EXECUTABLE)
+	
+.PHONY: all
+
+dirs: $(BIN_PATH)/present.txt $(OBJ_PATH)/present.txt
+.PHONY: dirs
+
+$(BIN_PATH)/present.txt:
+	$(MKDIR) -p $(BIN_PATH)
+	$(TOUCH) $(BIN_PATH)/present.txt
+
+$(OBJ_PATH)/present.txt:
+	$(MKDIR) -p $(OBJ_PATH)
+	$(TOUCH) $(OBJ_PATH)/present.txt
+
+$(EXECUTABLE): $(OBJECTS)
+	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$@.map" -o $@ $(LIBS)
+	$(TOOLCHAIN_PREFIX)$(SIZE) -x --format=SysV $@ 
+	date >> size$(CONFIG).log
+	$(TOOLCHAIN_PREFIX)$(SIZE) $@ >> size$(CONFIG).log
+	$(TOOLCHAIN_PREFIX)$(OBJCOPY) -R .stack -O binary $@ $(BIN_PATH)/$(PRJNAME).bin
+	$(TOOLCHAIN_PREFIX)$(OBJDUMP) -h -S "$@" > "$(BIN_PATH)/$(PRJNAME).lss"
+
+$(OBJ_PATH)/%.c.o: ./%.c
+	$(MKDIR) -p $(dir $@) 
+	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+
+$(OBJ_PATH)/%.cpp.o: ./%.cpp
+	$(MKDIR) -p $(dir $@) 
+	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+
+$(OBJ_PATH)/%.s.o: ./%.s
+	$(MKDIR) -p $(dir $@) 
+	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+
+clean:
+	$(RM) -r $(BIN_PATH)
+	$(RM) -r $(OBJ_PATH)
+.PHONY: clean
+

@@ -34,6 +34,6 @@ SRC_ASM +=
 
 
 # default target
-TARGET ?= debug
+CONFIG ?= debug
 
 
