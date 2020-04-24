@@ -24,7 +24,7 @@
 #
 # Version: 20200424
 
-# First, setup compiler settings for various targets
+# First, setup compiler settings for various builds
 include settings.mk
 
 # Project settings like sources and target specifics
