@@ -33,26 +33,22 @@ OBJ_PATH := build/$(CONFIG)
 EXECUTABLE := $(BIN_PATH)/$(PRJNAME).elf
 
 OBJECTS += $(addprefix $(OBJ_PATH)/, $(addsuffix .o,$(FILES)))
-#OBJECTS += $(SRC_C:%.c=$(OBJ_PATH)/%.c.o)
-#OBJECTS += $(SRC_CXX:%.cpp=$(OBJ_PATH)/%.cpp.o)
-#OBJECTS += $(SRC_ASM:%.s=$(OBJ_PATH)/%.s.o)
-# Set the dependency files that will be used to add header dependencies
 DEPS = $(OBJECTS:.o=.d)
+COMMONDEPS+= $(OBJ_PATH)/build-tag $(BIN_PATH)/build-tag
 
-all: | dirs $(EXECUTABLE)
+all: $(EXECUTABLE)
 	
 .PHONY: all
 
-dirs: $(BIN_PATH)/present.txt $(OBJ_PATH)/present.txt
-.PHONY: dirs
+-include $(DEPS)
 
-$(BIN_PATH)/present.txt:
+$(BIN_PATH)/build-tag:
 	$(MKDIR) -p $(BIN_PATH)
-	$(TOUCH) $(BIN_PATH)/present.txt
+	$(TOUCH) $@
 
-$(OBJ_PATH)/present.txt:
+$(OBJ_PATH)/build-tag:
 	$(MKDIR) -p $(OBJ_PATH)
-	$(TOUCH) $(OBJ_PATH)/present.txt
+	$(TOUCH) $@
 
 $(EXECUTABLE): $(OBJECTS)
 	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$@.map" -o $@ $(LIBS)
@@ -62,19 +58,19 @@ $(EXECUTABLE): $(OBJECTS)
 	$(TOOLCHAIN_PREFIX)$(OBJCOPY) -R .stack -O binary $@ $(BIN_PATH)/$(PRJNAME).bin
 	$(TOOLCHAIN_PREFIX)$(OBJDUMP) -h -S "$@" > "$(BIN_PATH)/$(PRJNAME).lss"
 
-$(OBJ_PATH)/%.c.o: %.c
+$(OBJ_PATH)/%.c.o: %.c $(COMMONDEPS)
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
-$(OBJ_PATH)/%.cpp.o: ./%.cpp
+$(OBJ_PATH)/%.cpp.o: ./%.cpp $(COMMONDEPS)
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
-$(OBJ_PATH)/%.s.o: ./%.s
+$(OBJ_PATH)/%.s.o: ./%.s $(COMMONDEPS)
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
-clean:
+clean: $(COMMONDEPS)
 	$(RM) -r $(BIN_PATH)
 	$(RM) -r $(OBJ_PATH)
 .PHONY: clean
