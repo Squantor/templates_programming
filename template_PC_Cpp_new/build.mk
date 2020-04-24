@@ -62,11 +62,11 @@ $(OBJ_PATH)/%.c.o: %.c $(COMMONDEPS)
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
-$(OBJ_PATH)/%.cpp.o: ./%.cpp $(COMMONDEPS)
+$(OBJ_PATH)/%.cpp.o: %.cpp $(COMMONDEPS)
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
-$(OBJ_PATH)/%.s.o: ./%.s $(COMMONDEPS)
+$(OBJ_PATH)/%.s.o: %.s $(COMMONDEPS)
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
