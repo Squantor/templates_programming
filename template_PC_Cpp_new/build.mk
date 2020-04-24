@@ -23,3 +23,6 @@
 # Build engine, inspired by: https://github.com/bronson/makefile-death
 #
 # Version: 20200424
+
+# transform build specific variables to variables used by the build
+

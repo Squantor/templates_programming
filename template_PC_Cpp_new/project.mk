@@ -26,8 +26,12 @@
 
 # project settings
 PRJNAME = template
-# sources for all targets
+SRC_C += src/main.c
+SRC_CXX +=
+SRC_ASM +=
+
 # sources for specific targets
+
 
 # default target
 TARGET ?= debug
