@@ -30,7 +30,9 @@ include settings.mk
 # Project settings like sources and target specifics
 include project.mk
 
-# build lines
+# build engine
+include build.mk
+
 # Function used to check variables. Use on the command line:
 # make print-VARNAME
 # Useful for debugging and adding features

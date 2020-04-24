@@ -20,19 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# various build settings
+# Build engine, inspired by: https://github.com/bronson/makefile-death
 #
 # Version: 20200424
-
-# Tool settings
-MAKE = make
-MKDIR = mkdir
-RM = rm
-C_COMPILER = gcc
-CXX_COMPILER = g++
-GDB = gdb
-SIZE = size
-AR = ar
-OBJDUMP = objdump
-OBJCOPY = objcopy
-

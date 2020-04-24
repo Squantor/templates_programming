@@ -24,5 +24,12 @@
 #
 # Version: 20200424
 
+# project settings
+PRJNAME = template
+# sources for all targets
+# sources for specific targets
+
 # default target
 TARGET ?= debug
+
+
