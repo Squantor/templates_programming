@@ -26,14 +26,15 @@
 
 # project settings
 PRJNAME = template
-SRC_C += src/main.c
-SRC_CXX +=
-SRC_ASM +=
+FILES += src/main.c
+FILES +=
+FILES +=
+INCLUDES += -Iinc
 
 # sources for specific targets
 
 
-# default target
-CONFIG ?= debug
-
+# configurations
+CONFIGS = debug release
+CONFIG ?= $(firstword $(CONFIGS))
 

@@ -24,11 +24,11 @@
 #
 # Version: 20200424
 
-# First, setup compiler settings for various builds
-include settings.mk
-
 # Project settings like sources and target specifics
 include project.mk
+
+# general settings
+include settings.mk
 
 # build engine
 include build.mk

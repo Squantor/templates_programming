@@ -25,14 +25,17 @@
 # Version: 20200424
 
 # transform build specific variables to variables used by the build
+COPYVARS += SOURCE CFLAGS CXXFLAGS INCLUDES LIBS
+$(foreach V,$(COPYVARS),$(eval $(V) += $$($(V)_$(CONFIG))))
 
 BIN_PATH := bin/$(CONFIG)
 OBJ_PATH := build/$(CONFIG)
 EXECUTABLE := $(BIN_PATH)/$(PRJNAME).elf
 
-OBJECTS += $(SRC_C:%.c=$(OBJ_PATH)/%.c.o)
-OBJECTS += $(SRC_CXX:%.cpp=$(OBJ_PATH)/%.cpp.o)
-OBJECTS += $(SRC_ASM:%.s=$(OBJ_PATH)/%.s.o)
+OBJECTS += $(addprefix $(OBJ_PATH)/, $(addsuffix .o,$(FILES)))
+#OBJECTS += $(SRC_C:%.c=$(OBJ_PATH)/%.c.o)
+#OBJECTS += $(SRC_CXX:%.cpp=$(OBJ_PATH)/%.cpp.o)
+#OBJECTS += $(SRC_ASM:%.s=$(OBJ_PATH)/%.s.o)
 # Set the dependency files that will be used to add header dependencies
 DEPS = $(OBJECTS:.o=.d)
 
@@ -59,7 +62,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(TOOLCHAIN_PREFIX)$(OBJCOPY) -R .stack -O binary $@ $(BIN_PATH)/$(PRJNAME).bin
 	$(TOOLCHAIN_PREFIX)$(OBJDUMP) -h -S "$@" > "$(BIN_PATH)/$(PRJNAME).lss"
 
-$(OBJ_PATH)/%.c.o: ./%.c
+$(OBJ_PATH)/%.c.o: %.c
 	$(MKDIR) -p $(dir $@) 
 	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
