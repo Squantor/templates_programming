@@ -36,10 +36,12 @@ endif
 COPYVARS += SOURCE CFLAGS CXXFLAGS INCLUDES LIBS
 $(foreach V,$(COPYVARS),$(eval $(V) += $$($(V)_$(CONFIG))))
 
+# create paths for build
 BIN_PATH := bin/$(CONFIG)
 OBJ_PATH := build/$(CONFIG)
 EXECUTABLE := $(BIN_PATH)/$(PRJNAME).elf
 
+# create lists of prerequisites for the build
 OBJECTS += $(addprefix $(OBJ_PATH)/, $(addsuffix .o,$(FILES)))
 DEPS = $(OBJECTS:.o=.d)
 COMMONDEPS+= $(OBJ_PATH)/build-tag $(BIN_PATH)/build-tag

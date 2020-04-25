@@ -22,16 +22,18 @@
 
 # project settings
 #
-# Version: 20200424
+# Version: 20200425
+
+# valid configurations like debug, release test, etcetera
+CONFIGS = debug
 
 # project settings
 PRJNAME = template
+
+# project sources
 FILES += src/main.cpp src/test.c src/test.cpp
 INCLUDES += -Iinc
-
 # sources for specific targets
 
 
-# configurations
-CONFIGS = debug
 
