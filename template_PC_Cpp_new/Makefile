@@ -30,7 +30,12 @@ include project.mk
 # general settings
 include settings.mk
 
-# TODO: specific platforms here?
+# Target definition handling
+ifeq (, $(TARGET))
+$(error Unknown target $(TARGET)!)
+else
+include targets/$(TARGET).mk
+endif
 
 # build engine
 include build.mk
