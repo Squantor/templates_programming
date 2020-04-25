@@ -27,9 +27,6 @@
 # Project settings like sources and target specifics
 include project.mk
 
-# general settings
-include settings.mk
-
 # Target definition handling
 ifeq (, $(TARGET))
 $(error Unknown target $(TARGET)!)

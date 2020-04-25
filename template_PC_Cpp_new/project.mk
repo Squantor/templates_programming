@@ -34,7 +34,5 @@ TARGET = PC
 # project sources
 FILES += src/main.cpp src/test.c src/test.cpp
 INCLUDES += -Iinc
-# sources for specific targets
-
 
 
