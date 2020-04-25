@@ -37,13 +37,12 @@ OBJDUMP = objdump
 OBJCOPY = objcopy
 TOUCH = touch
 
-#define a list of configs
-
-
 #default flags
-CFLAGS = -std=gnu11 -Wall -Wextra -Wno-main -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections
-CFLAGS_debug = -Og -g3
-CFLAGS_release = -Os -g
-CXXFLAGS = -std=c++17 -Wall -Wextra -Wno-main -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions
+CFLAGS = -std=gnu11 -Wall -Wextra -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections
+CFLAGS_debug = -O0 -g3
+CFLAGS_release = -O2 -g
+CXXFLAGS = -std=c++17 -Wall -Wextra -fno-common -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections
+CXXFLAGS_debug = -O0 -g3
+CXXFLAGS_release = -O2 -g
 ASMFLAGS = -c -x assembler-with-cpp
-LINKFLAGS += -nostdlib -Wl,--gc-sections -Wl,-print-memory-usage
+LINKFLAGS += -Wl,--gc-sections
