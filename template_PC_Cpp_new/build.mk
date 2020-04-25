@@ -46,7 +46,9 @@ OBJECTS += $(addprefix $(OBJ_PATH)/, $(addsuffix .o,$(FILES)))
 DEPS = $(OBJECTS:.o=.d)
 COMMONDEPS+= $(OBJ_PATH)/build-tag $(BIN_PATH)/build-tag
 
-all: $(EXECUTABLE)
+all: post-build
+
+main-build: pre-build $(EXECUTABLE)
 	
 .PHONY: all
 
