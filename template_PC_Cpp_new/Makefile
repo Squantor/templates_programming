@@ -22,7 +22,7 @@
 
 # Generic project makefile, inspired by: https://github.com/bronson/makefile-death
 #
-# Version: 20200424
+# Version: 20200425
 
 # Project settings like sources and target specifics
 include project.mk
@@ -30,8 +30,13 @@ include project.mk
 # general settings
 include settings.mk
 
+# TODO: specific platforms here?
+
 # build engine
 include build.mk
+
+# project specific makefile rules
+include prj_rules.mk
 
 # Function used to check variables. Use on the command line:
 # make print-VARNAME
