@@ -35,4 +35,17 @@ post-build: main-build
 
 .PHONY: post-build
 
+#project hardware specific commands
+gdbbmp: all
+	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmp.txt
+.PHONY: gdbbmp
+
+tpwrdisable:
+	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmp_tpwr_disable.txt
+.PHONY: tpwrdisable
+
+tpwrenable:
+	$(TOOLCHAIN_PREFIX)$(GDB) -x ./gdb_scripts/bmp_tpwr_enable.txt
+.PHONY: tpwrenable
+
 
