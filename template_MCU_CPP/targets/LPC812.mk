@@ -27,7 +27,6 @@
 # import compiler settings for the core in this microcontroller
 include targets/Cortex-M0plus.mk
 
-# TODO: Specific C files and linker scripts
-C_SOURCES +=
-CXX_SOURCES += platform/$(MCU).cpp
-S_SOURCES +=
+# Specific C files and linker scripts
+FILES += targets/$(MCU).cpp
+

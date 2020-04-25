@@ -22,11 +22,11 @@ pre-clean:
 
 pre-release:
 	$(MAKE) -C ../squantorLibC release PLATFORM=CortexM0
-	$(MAKE) -C ../squantorLibEmbeddedC release PLATFORM=CortexM0
+	$(MAKE) -C ../squantorLibEmbeddedC release PLATFORM=CortexM0 LIBC_INC=../squantorLibC/inc/
 
 pre-debug:
 	$(MAKE) -C ../squantorLibC debug PLATFORM=CortexM0
-	$(MAKE) -C ../squantorLibEmbeddedC debug PLATFORM=CortexM0
+	$(MAKE) -C ../squantorLibEmbeddedC debug PLATFORM=CortexM0 LIBC_INC=../squantorLibC/inc/
 
 #project hardware specific commands
 gdbusbdebug: debug

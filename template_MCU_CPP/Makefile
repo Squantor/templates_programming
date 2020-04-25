@@ -29,7 +29,7 @@
 include project.mk
 
 # Target definition handling
-ifdef TARGET
+ifndef TARGET
 $(error Target is not defined!)
 else
 include targets/$(TARGET).mk

@@ -24,7 +24,7 @@
 #
 # Version: 20200425
 
-ifdef MCU
+ifndef MCU
 $(error MCU is not defined!)
 else
 include targets/$(MCU).mk
