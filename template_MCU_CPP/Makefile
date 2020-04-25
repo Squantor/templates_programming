@@ -20,7 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Generic project makefile, inspired by: https://github.com/bronson/makefile-death
+# Generic project makefile
+# Heavily inspired by: https://github.com/bronson/makefile-death
 #
 # Version: 20200425
 
