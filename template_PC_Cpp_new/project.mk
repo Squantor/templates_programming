@@ -33,6 +33,5 @@ INCLUDES += -Iinc
 
 
 # configurations
-CONFIGS = debug release
-CONFIG ?= $(firstword $(CONFIGS))
+CONFIGS = debug
 

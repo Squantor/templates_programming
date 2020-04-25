@@ -22,7 +22,15 @@
 
 # Build engine, inspired by: https://github.com/bronson/makefile-death
 #
-# Version: 20200424
+# Version: 20200425
+
+# Configuration management
+# load first config as default configuration
+CONFIG ?= $(firstword $(CONFIGS))
+# check if it is a valid configuration
+ifeq (, $(findstring $(CONFIG),$(CONFIGS)))
+$(error Unknown configuration $(CONFIG)!)
+endif
 
 # transform build specific variables to variables used by the build
 COPYVARS += SOURCE CFLAGS CXXFLAGS INCLUDES LIBS
