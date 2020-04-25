@@ -24,7 +24,7 @@
 #
 # Version: 20200425
 
-ifeq (, $(MCU))
+ifdef MCU
 $(error MCU is not defined!)
 else
 include targets/$(MCU).mk
