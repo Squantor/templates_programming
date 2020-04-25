@@ -20,32 +20,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Generic project makefile, inspired by: https://github.com/bronson/makefile-death
+# settings for the MCU target
 #
 # Version: 20200425
 
-# Project settings like sources and target specifics
-include project.mk
-
-# Target definition handling
-ifeq (, $(TARGET))
-$(error Target is not defined!)
+ifeq (, $(MCU))
+$(error MCU is not defined!)
 else
-include targets/$(TARGET).mk
+include targets/$(MCU).mk
 endif
 
-# build engine
-include build.mk
+# TODO: when in debug, add define
+DEFINES_release += -DNDEBUG
 
-# project specific makefile rules
-include prj_rules.mk
+# configuration specific flags
+CFLAGS += -std=gnu11 -Wall -Wextra -c 
+CFLAGS_debug += -O0 -g3
+CFLAGS_release += -Os -g
+CXXFLAGS += -std=c++17 -Wall -Wextra -c
+CXXFLAGS_debug += -O0 -g3
+CXXFLAGS_release += -Os -g
+ASMFLAGS += -c -x assembler-with-cpp
+LDSCRIPT = -T"targets/$(MCU).ld"
 
-# Function used to check variables. Use on the command line:
-# make print-VARNAME
-# Useful for debugging and adding features
-print-%: ; @echo $*=$($*)
-.Phony: print-%
-
-
-
-
+# useful settings
+DEFINES += -DMCU_$(MCU)

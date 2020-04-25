@@ -29,10 +29,13 @@ CONFIGS = debug
 
 # project settings
 PRJNAME = template
-TARGET = PC
+TARGET = MCU
+MCU = LPC812
+BOARD = dummy_board
+
 
 # project sources
-FILES += src/main.cpp src/test.c src/test.cpp
+FILES += src/main.cpp src/startup.cpp src/$(BOARD).cpp
 INCLUDES += -Iinc
 
 

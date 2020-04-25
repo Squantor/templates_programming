@@ -20,32 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Generic project makefile, inspired by: https://github.com/bronson/makefile-death
+# settings for the LPC812 Microcontroller
 #
 # Version: 20200425
 
-# Project settings like sources and target specifics
-include project.mk
+# import compiler settings for the core in this microcontroller
+include Cortex-M0+.mk
 
-# Target definition handling
-ifeq (, $(TARGET))
-$(error Target is not defined!)
-else
-include targets/$(TARGET).mk
-endif
-
-# build engine
-include build.mk
-
-# project specific makefile rules
-include prj_rules.mk
-
-# Function used to check variables. Use on the command line:
-# make print-VARNAME
-# Useful for debugging and adding features
-print-%: ; @echo $*=$($*)
-.Phony: print-%
-
-
-
-
+# TODO: Specific C files and linker scripts
+C_SOURCES +=
+CXX_SOURCES += platform/$(MCU).cpp
+S_SOURCES +=

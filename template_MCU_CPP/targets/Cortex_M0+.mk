@@ -20,32 +20,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Generic project makefile, inspired by: https://github.com/bronson/makefile-death
+# settings for the Cortex-M0+ Core
 #
 # Version: 20200425
 
-# Project settings like sources and target specifics
-include project.mk
+# Tool settings
+MAKE := make
+MKDIR := mkdir
+RM := rm
+TOOLCHAIN_PREFIX := arm-none-eabi-
+C_COMPILER := gcc
+CXX_COMPILER := g++
+GDB := gdb
+SIZE := size
+AR := ar
+OBJDUMP := objdump
+OBJCOPY := objcopy
+TOUCH := touch
 
-# Target definition handling
-ifeq (, $(TARGET))
-$(error Target is not defined!)
-else
-include targets/$(TARGET).mk
-endif
-
-# build engine
-include build.mk
-
-# project specific makefile rules
-include prj_rules.mk
-
-# Function used to check variables. Use on the command line:
-# make print-VARNAME
-# Useful for debugging and adding features
-print-%: ; @echo $*=$($*)
-.Phony: print-%
-
-
-
+# Core flags
+CFLAGS += -mcpu=cortex-m0plus -mthumb
+CXXFLAGS += -mcpu=cortex-m0plus -mthumb
+ASMFLAGS += -mcpu=cortex-m0plus -mthumb
+LINKFLAGS += -mcpu=cortex-m0plus -mthumb
+LDSCRIPT = -T"ld/$(MCU).ld"
 
