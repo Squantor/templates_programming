@@ -43,5 +43,4 @@ CFLAGS += -mcpu=cortex-m0plus -mthumb
 CXXFLAGS += -mcpu=cortex-m0plus -mthumb
 ASMFLAGS += -mcpu=cortex-m0plus -mthumb
 LINKFLAGS += -mcpu=cortex-m0plus -mthumb
-LDSCRIPT = -T"ld/$(MCU).ld"
 

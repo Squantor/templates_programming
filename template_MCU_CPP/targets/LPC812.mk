@@ -25,7 +25,7 @@
 # Version: 20200425
 
 # import compiler settings for the core in this microcontroller
-include Cortex-M0+.mk
+include targets/Cortex-M0plus.mk
 
 # TODO: Specific C files and linker scripts
 C_SOURCES +=
