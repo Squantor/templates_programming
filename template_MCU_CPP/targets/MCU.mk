@@ -34,13 +34,14 @@ endif
 DEFINES_release += -DNDEBUG
 
 # configuration specific flags
-CFLAGS += -std=gnu11 -Wall -Wextra -c 
+CFLAGS += -std=gnu11 -Wall -Wextra -Wno-main -fno-common -c -ffunction-sections -fdata-sections
 CFLAGS_debug += -O0 -g3
 CFLAGS_release += -Os -g
-CXXFLAGS += -std=c++17 -Wall -Wextra -c
+CXXFLAGS += -std=c++17 -Wall -Wextra -Wno-main -fno-common -c -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions
 CXXFLAGS_debug += -O0 -g3
 CXXFLAGS_release += -Os -g
 ASMFLAGS += -c -x assembler-with-cpp
+LDFLAGS +=  -nostdlib -Wl,--gc-sections -Wl,-print-memory-usage
 LDSCRIPT = -T"targets/$(MCU).ld"
 
 # useful settings

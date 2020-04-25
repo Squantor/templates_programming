@@ -42,5 +42,5 @@ TOUCH := touch
 CFLAGS += -mcpu=cortex-m0plus -mthumb
 CXXFLAGS += -mcpu=cortex-m0plus -mthumb
 ASMFLAGS += -mcpu=cortex-m0plus -mthumb
-LINKFLAGS += -mcpu=cortex-m0plus -mthumb
+LDFLAGS += -mcpu=cortex-m0plus -mthumb
 

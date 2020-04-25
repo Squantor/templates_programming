@@ -30,4 +30,4 @@ MEMORY
 }
 
 /* Include main link script. Note: it will be searched in -L paths. */
-INCLUDE linkscript_lpc.ld
+INCLUDE targets/linkscript_lpc.ld
