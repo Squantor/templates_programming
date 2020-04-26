@@ -22,7 +22,7 @@
 
 # settings for the PC target
 #
-# Version: 20200425
+# Version: 20200426
 
 # Tool settings
 MAKE := make
@@ -38,6 +38,9 @@ OBJDUMP := objdump
 OBJCOPY := objcopy
 TOUCH := touch
 
+# valid configurations like debug, release test, etcetera
+CONFIGS = debug release
+
 #default flags
 CFLAGS = -std=gnu11 -Wall -Wextra -c
 CFLAGS_debug = -O0 -g3
@@ -46,4 +49,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -c
 CXXFLAGS_debug = -O0 -g3
 CXXFLAGS_release = -O2 -g
 ASMFLAGS = -c -x assembler-with-cpp
-LINKFLAGS +=
+LDFLAGS +=
+DEFINES_release += -DNDEBUG
+DEFINES_debug += -DDEBUG
+DEFINES += -DMCU_$(MCU)
