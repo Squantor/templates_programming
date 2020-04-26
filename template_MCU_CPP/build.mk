@@ -85,7 +85,7 @@ $(OBJ_PATH)/%.s.o: %.s $(COMMONDEPS)
 	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
 clean: $(COMMONDEPS)
-	$(RM) -r $(BIN_PATH)
-	$(RM) -r $(OBJ_PATH)
+	$(RM) -r bin
+	$(RM) -r build
 .PHONY: clean
 
