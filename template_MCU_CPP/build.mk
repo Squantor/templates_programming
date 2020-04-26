@@ -22,7 +22,7 @@
 
 # Build engine, inspired by: https://github.com/bronson/makefile-death
 #
-# Version: 20200425
+# Version: 20200426
 
 # Configuration management
 # load first config as default configuration
@@ -33,10 +33,14 @@ $(error Unknown configuration $(CONFIG)!)
 endif
 
 # transform build specific variables to variables used by the build
-COPYVARS += SOURCE CFLAGS CXXFLAGS INCLUDES LIBS 
+COPYVARS += SOURCE CFLAGS CXXFLAGS INCLUDES LIBS DEFINES
 $(foreach V,$(COPYVARS),$(eval $(V) += $$($(V)_$(CONFIG))))
 # specific handling for linker script
 LDFLAGS += $(LDSCRIPT)
+# add defines to flags
+CFLAGS += $(DEFINES)
+CXXFLAGS += $(DEFINES)
+ASMFLAGS += $(DEFINES)
 
 # create paths for build
 BIN_PATH := bin/$(CONFIG)
