@@ -22,10 +22,7 @@
 
 # project settings
 #
-# Version: 20200425
-
-# valid configurations like debug, release test, etcetera
-CONFIGS = debug
+# Version: 20200426
 
 # project settings
 PRJNAME = template

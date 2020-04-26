@@ -33,6 +33,9 @@ endif
 # TODO: when in debug, add define
 DEFINES_release += -DNDEBUG
 
+# valid configurations like debug, release test, etcetera
+CONFIGS = debug release
+
 # configuration specific flags
 CFLAGS += -std=gnu11 -Wall -Wextra -Wno-main -fno-common -c -ffunction-sections -fdata-sections
 CFLAGS_debug += -O0 -g3
