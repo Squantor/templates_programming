@@ -22,16 +22,13 @@
 
 # settings for the MCU target
 #
-# Version: 20200425
+# Version: 20200426
 
 ifndef MCU
 $(error MCU is not defined!)
 else
 include targets/$(MCU).mk
 endif
-
-# TODO: when in debug, add define
-DEFINES_release += -DNDEBUG
 
 # valid configurations like debug, release test, etcetera
 CONFIGS = debug release
@@ -46,6 +43,6 @@ CXXFLAGS_release += -Os -g
 ASMFLAGS += -c -x assembler-with-cpp
 LDFLAGS +=  -nostdlib -Wl,--gc-sections -Wl,-print-memory-usage
 LDSCRIPT = -T"targets/$(MCU).ld"
-
-# useful settings
+DEFINES_release += -DNDEBUG
+DEFINES_debug += -DDEBUG
 DEFINES += -DMCU_$(MCU)
