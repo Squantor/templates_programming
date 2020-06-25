@@ -22,7 +22,7 @@
 
 # project settings
 #
-# Version: 20200427
+# Version: 20200625
 
 # project settings
 PROJECT = LPC824_example
