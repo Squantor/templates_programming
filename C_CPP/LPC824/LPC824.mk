@@ -34,7 +34,6 @@ BOARD = dummy_board
 FILES += $(PROJECT)/src/main.cpp \
 $(PROJECT)/src/$(BOARD).cpp
 
-LIBS += -lgcc
 INCLUDES += -IlibMcuLL/inc -I$(PROJECT)/inc
 
 
