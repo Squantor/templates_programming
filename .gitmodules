@@ -7,3 +7,6 @@
 [submodule "squantorLibEmbeddedC"]
 	path = squantorLibEmbeddedC
 	url = https://github.com/Squantor/squantorLibEmbeddedC.git
+[submodule "C_CPP/libMcuLL"]
+	path = C_CPP/libMcuLL
+	url = https://github.com/Squantor/libMcuLL.git
