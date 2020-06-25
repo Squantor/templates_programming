@@ -25,7 +25,7 @@
 # Version: 20200625
 
 # project settings
-MCU = LPC824M201JHI33
+MCU = CortexM4
 TARGET = MCU
 BOARD = dummy_board
 

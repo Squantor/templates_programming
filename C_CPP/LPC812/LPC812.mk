@@ -25,7 +25,6 @@
 # Version: 20200625
 
 # project settings
-PROJECT = LPC812_example
 MCU = LPC812M101JDH20
 TARGET = MCU
 BOARD = dummy_board

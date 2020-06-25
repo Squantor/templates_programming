@@ -25,7 +25,7 @@
 # Version: 20200625
 
 # project settings
-MCU = LPC824M201JHI33
+MCU = CortexM0plus
 TARGET = MCU
 BOARD = dummy_board
 
@@ -34,5 +34,4 @@ FILES += $(PROJECT)/src/main.cpp \
 $(PROJECT)/src/$(BOARD).cpp
 
 INCLUDES += -IlibMcuLL/inc -I$(PROJECT)/inc
-
 
