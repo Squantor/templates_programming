@@ -23,14 +23,19 @@
 # Generic project makefile
 # Heavily inspired by: https://github.com/bronson/makefile-death
 #
-# Version: 20200624
+# Version: 20200712
 
 # Project settings like sources and target specifics
 ifndef PROJECT
 $(error no PROJECT defined!)
 else
+ifneq ("$(wildcard $(PROJECT)/$(PROJECT).mk)","")
 include $(PROJECT)/$(PROJECT).mk
+else
+$(error $(PROJECT)/$(PROJECT).mk does not exist!)
 endif
+endif
+
 
 # Target definition handling
 ifndef TARGET
