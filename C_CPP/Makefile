@@ -23,7 +23,12 @@
 # Generic project makefile
 # Heavily inspired by: https://github.com/bronson/makefile-death
 #
-# Version: 20200712
+# Version: 20200722
+
+# User definable settings are here
+
+
+# --- nothing user definable below ---
 
 # Project settings like sources and target specifics
 ifndef PROJECT
@@ -35,17 +40,16 @@ else
 $(error $(PROJECT)/$(PROJECT).mk does not exist!)
 endif
 endif
-
-
 # Target definition handling
+
 ifndef TARGET
 $(error Target is not defined!)
 else
 include targets/$(TARGET).mk
 endif
 
-# build engine
-# Configuration management
+# --- build engine ---
+
 # load first config as default configuration
 CONFIG ?= $(firstword $(CONFIGS))
 # check if it is a valid configuration
