@@ -105,6 +105,9 @@ main-build: pre-build $(EXECUTABLE)
 
 -include $(DEPS)
 
+doxyhtml:
+	( cat doxygen/Doxyfile ; echo "INPUT=$(FILES)" ) | doxygen -
+
 $(BIN_PATH)/build-tag:
 	$(C)$(MKDIR) -p $(BIN_PATH)
 	$(C)$(TOUCH) $@
