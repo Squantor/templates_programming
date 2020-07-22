@@ -28,7 +28,9 @@
 # User definable settings are here
 
 # Define a default project to compile, replace with wanted project
-#PROJECT ?= default
+PROJECT ?= PC
+# Verbose output?
+VERBOSE ?= 0
 
 # --- nothing user definable below ---
 
@@ -86,6 +88,15 @@ OBJECTS += $(addprefix $(OBJ_PATH)/, $(addsuffix .o,$(FILES)))
 DEPS = $(OBJECTS:.o=.d)
 COMMONDEPS+= $(OBJ_PATH)/build-tag $(BIN_PATH)/build-tag
 
+# Verbosity handling
+ifeq ($(VERBOSE),1)
+  C = 
+  U = @true
+else
+  C = @
+  U = @echo
+endif
+
 all: post-build
 
 main-build: pre-build $(EXECUTABLE)
@@ -95,35 +106,40 @@ main-build: pre-build $(EXECUTABLE)
 -include $(DEPS)
 
 $(BIN_PATH)/build-tag:
-	$(MKDIR) -p $(BIN_PATH)
-	$(TOUCH) $@
+	$(C)$(MKDIR) -p $(BIN_PATH)
+	$(C)$(TOUCH) $@
 
 $(OBJ_PATH)/build-tag:
-	$(MKDIR) -p $(OBJ_PATH)
-	$(TOUCH) $@
+	$(C)$(MKDIR) -p $(OBJ_PATH)
+	$(C)$(TOUCH) $@
 
 $(EXECUTABLE): $(OBJECTS)
-	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$@.map" -o $@ $(LIBS)
-	date >> $(SIZELOG_PATH)size$(CONFIG).log
-	$(TOOLCHAIN_PREFIX)$(SIZE) $@ >> $(SIZELOG_PATH)size$(CONFIG).log
-	$(TOOLCHAIN_PREFIX)$(OBJCOPY) -R .stack -O binary $@ $(BIN_PATH)/$(PROJECT).bin
-	$(TOOLCHAIN_PREFIX)$(OBJDUMP) -h -S "$@" > "$(BIN_PATH)/$(PROJECT).lss"
+	$(U) "Linking $(EXECUTABLE)"
+	$(C)$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$@.map" -o $@ $(LIBS)
+	$(C)date >> $(SIZELOG_PATH)size$(CONFIG).log
+	$(C)$(TOOLCHAIN_PREFIX)$(SIZE) $@ >> $(SIZELOG_PATH)size$(CONFIG).log
+	$(C)$(TOOLCHAIN_PREFIX)$(OBJCOPY) -R .stack -O binary $@ $(BIN_PATH)/$(PROJECT).bin
+	$(C)$(TOOLCHAIN_PREFIX)$(OBJDUMP) -h -S "$@" > "$(BIN_PATH)/$(PROJECT).lss"
 
 $(OBJ_PATH)/%.c.o: %.c $(COMMONDEPS)
-	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(U) "C   $(basename $(notdir $@))"
+	$(C)$(MKDIR) -p $(dir $@) 
+	$(C)$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
 $(OBJ_PATH)/%.cpp.o: %.cpp $(COMMONDEPS)
-	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(U) "C++ $(basename $(notdir $@))"
+	$(C)$(MKDIR) -p $(dir $@) 
+	$(C)$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
 $(OBJ_PATH)/%.s.o: %.s $(COMMONDEPS)
-	$(MKDIR) -p $(dir $@) 
-	$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(U) "ASM $(basename $(notdir $@))"
+	$(C)$(MKDIR) -p $(dir $@) 
+	$(C)$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
 clean: $(COMMONDEPS)
-	$(RM) -r bin
-	$(RM) -r build
+	$(U) "Cleaning"
+	$(C)$(RM) -r bin
+	$(C)$(RM) -r build
 .PHONY: clean
 
 # project specific makefile rules

@@ -22,16 +22,16 @@
 
 # Project specific rules, a few predefined but feel free to add your own
 #
-# Version: 20200425
+# Version: 20200722
 
 # executed 
 pre-build:
-	@echo executing pre build steps
+	$(U) "executing pre build steps"
 
 .PHONY: pre-build
 
 post-build: main-build
-	@echo executing post build steps
+	$(U) "executing post build steps"
 
 .PHONY: post-build
 
