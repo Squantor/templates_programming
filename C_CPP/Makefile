@@ -106,7 +106,7 @@ main-build: pre-build $(EXECUTABLE)
 -include $(DEPS)
 
 doc:
-	( cat doxygen/Doxyfile ; echo "INPUT=$(FILES)" echo "PROJECT_NAME=$(PROJECT)" ) | doxygen -
+	$(C)( cat doxygen/Doxyfile ; echo "@INCLUDE = $(PROJECT)/$(PROJECT).doxy" ) | doxygen -
 .PHONY: doc
 
 $(BIN_PATH)/build-tag:

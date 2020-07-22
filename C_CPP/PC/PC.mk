@@ -22,10 +22,9 @@
 
 # project settings
 #
-# Version: 20200624
+# Version: 20200722
 
 # project settings
-PRJNAME = template_PC
 TARGET = PC
 
 # project sources
