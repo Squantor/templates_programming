@@ -24,9 +24,12 @@ Release/
 *.app
 bin/
 
-#miscellanious generated files
+# miscellanious generated files
 *.log
 
-#eclipse stuff
+# eclipse stuff
 .settings/
 *.launch
+
+# doxygen output
+documentation/
