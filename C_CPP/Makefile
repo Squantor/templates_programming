@@ -105,8 +105,9 @@ main-build: pre-build $(EXECUTABLE)
 
 -include $(DEPS)
 
-doxyhtml:
-	( cat doxygen/Doxyfile ; echo "INPUT=$(FILES)" ) | doxygen -
+doc:
+	( cat doxygen/Doxyfile ; echo "INPUT=$(FILES)" echo "PROJECT_NAME=$(PROJECT)" ) | doxygen -
+.PHONY: doc
 
 $(BIN_PATH)/build-tag:
 	$(C)$(MKDIR) -p $(BIN_PATH)
