@@ -23,7 +23,7 @@
 # Generic project makefile
 # Heavily inspired by: https://github.com/bronson/makefile-death
 #
-# Version: 20200722
+# Version: 20201120
 
 # User definable settings are here
 
@@ -32,7 +32,11 @@ PROJECT ?= PC
 # Verbose output?
 VERBOSE ?= 0
 
+
 # --- nothing user definable below ---
+
+# get the root directory of the build, used below for reproducable builds
+ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 # Project settings like sources and target specifics
 ifndef PROJECT
@@ -70,6 +74,10 @@ LDFLAGS += $(LDSCRIPT)
 CFLAGS += $(DEFINES)
 CXXFLAGS += $(DEFINES)
 ASMFLAGS += $(DEFINES)
+# substitute absolute paths with relative ones
+CFLAGS += -fdebug-prefix-map=$(ROOT_DIR)=.
+CXXFLAGS += -fdebug-prefix-map=$(ROOT_DIR)=.
+ASMFLAGS += -fdebug-prefix-map=$(ROOT_DIR)=.
 
 # for a multi project build pipeline
 ifdef PROJECT
@@ -128,17 +136,17 @@ $(EXECUTABLE): $(OBJECTS)
 $(OBJ_PATH)/%.c.o: %.c $(COMMONDEPS)
 	$(U) "C   $(basename $(notdir $@))"
 	$(C)$(MKDIR) -p $(dir $@) 
-	$(C)$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(C)$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(CFLAGS) $(INCLUDES) -MP -MMD -c -o $@ $<
 
 $(OBJ_PATH)/%.cpp.o: %.cpp $(COMMONDEPS)
 	$(U) "C++ $(basename $(notdir $@))"
 	$(C)$(MKDIR) -p $(dir $@) 
-	$(C)$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(C)$(TOOLCHAIN_PREFIX)$(CXX_COMPILER) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c -o $@ $<
 
 $(OBJ_PATH)/%.s.o: %.s $(COMMONDEPS)
 	$(U) "ASM $(basename $(notdir $@))"
 	$(C)$(MKDIR) -p $(dir $@) 
-	$(C)$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(C)$(TOOLCHAIN_PREFIX)$(C_COMPILER) $(ASMFLAGS) $(INCLUDES) -MP -MMD -c -o $@ $<
 
 clean: $(COMMONDEPS)
 	$(U) "Cleaning"
